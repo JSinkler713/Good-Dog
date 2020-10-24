@@ -6,13 +6,19 @@ export default function App() {
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [dogUri, setDogUri] = useState('https://placedog.net/300/500/s')
 
-  const handlePress = ()=> {
+  const handlePress = async()=> {
+    let dogImage = await fetch('https://dog.ceo/api/breeds/image/random')
+    /*
     const randomNum = Math.floor(Math.random() *4)
     const arrayOfUris = ['https://placedog.net/300/500?random/s', 'https://placedog.net/300/300?random/s', 'https://placedog.net/320/500?random/s', 'https://placedog.net/310/525/s']
     console.log(arrayOfUris)
     console.log(randomNum)
     console.log(arrayOfUris[randomNum])
     setDogUri(arrayOfUris[randomNum])
+    */
+    dogImage = await dogImage.json()
+    await console.log(dogImage)
+    await setDogUri(dogImage.message)
   }
 
   return (
@@ -20,7 +26,7 @@ export default function App() {
       <Text style={styles.header}>Man's best Friend</Text>
       <Image
         source={{
-          width: 300,
+          width: '100%',
           height: 500,
           uri: `${dogUri}`
         }}
