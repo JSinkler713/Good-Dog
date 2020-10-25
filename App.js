@@ -1,8 +1,28 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { TouchableOpacity, Image, RefreshControl, StyleSheet, Text, View, ScrollView } from 'react-native';
 
+
+import * as SQLite from 'expo-sqlite';
+const db = SQLite.openDatabase('db.gooddog');
+
+
+
+
+
 export default function App() {
+  //if no db table favorites set up db with favorites table with uri column
+  useEffect(()=> {
+    db.transaction(tx => {
+      tx.executeSql(
+        "create table if not exists favorites (id integer primary key not null,  uri text);"
+      );
+    });
+  }, [])
+
+
+
+
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [dogUri, setDogUri] = useState('https://placedog.net/300/500/s')
 
@@ -20,6 +40,33 @@ export default function App() {
     await console.log(dogImage)
     await setDogUri(dogImage.message)
   }
+  const handleFavorite = ()=> {
+    console.log('setting this dog url into favorites')
+    console.log(dogUri)
+    // set into dogImageFavorites table
+
+    console.log('Inserting into sql database')
+    
+    console.log('This is all my favorites so far')
+    // fetch all dogImageFavorites and console.log
+
+    db.transaction(
+      tx => {
+        //sets the done value to 0, and the value value to text
+        tx.executeSql("insert into favorites (uri) values (?)", [dogUri]);
+        //then executes a select *
+        //the [] is beacuse no ?'s(params), and thenext part is the success callback
+        tx.executeSql("select * from favorites", [], (_, { rows }) => {
+          console.log('heyoo', JSON.stringify(rows))
+          console.log('-------------------')
+        });
+      },
+      //the null is the error
+      null,
+      //the forceUpdate is the success
+      //forceUpdate
+    );
+  }
 
   return (
     <View style={styles.container}> 
@@ -33,6 +80,9 @@ export default function App() {
       />
       <TouchableOpacity onPress={handlePress} >
         <Text>View another pooch</Text>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <Text onPress={handleFavorite}>Mark as favorite</Text>
       </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
