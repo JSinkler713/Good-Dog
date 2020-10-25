@@ -2,6 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useCallback, useState, useEffect } from 'react';
 import { TouchableOpacity, Image, RefreshControl, StyleSheet, Text, View, ScrollView } from 'react-native';
 
+import Favorites from './screens/Favorites';
+
+
 
 import * as SQLite from 'expo-sqlite';
 const db = SQLite.openDatabase('db.gooddog');
@@ -70,6 +73,7 @@ export default function App() {
 
   return (
     <View style={styles.container}> 
+      {/*
       <Text style={styles.header}>Man's best Friend</Text>
       <Image
         source={{
@@ -85,6 +89,8 @@ export default function App() {
         <Text onPress={handleFavorite}>Mark as favorite</Text>
       </TouchableOpacity>
       <StatusBar style="auto" />
+      */}
+      <Favorites />
     </View>
   );
 }
