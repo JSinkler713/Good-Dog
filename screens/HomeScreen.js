@@ -18,39 +18,22 @@ export default function Home({navigation, route}) {
       );
     });
   }, [])
-
-
-
-
   const [isRefreshing, setIsRefreshing] = useState(false)
   const [dogUri, setDogUri] = useState('https://placedog.net/300/500/s')
 
   const handlePress = async()=> {
     let dogImage = await fetch('https://dog.ceo/api/breeds/image/random')
-    /*
-    const randomNum = Math.floor(Math.random() *4)
-    const arrayOfUris = ['https://placedog.net/300/500?random/s', 'https://placedog.net/300/300?random/s', 'https://placedog.net/320/500?random/s', 'https://placedog.net/310/525/s']
-    console.log(arrayOfUris)
-    console.log(randomNum)
-    console.log(arrayOfUris[randomNum])
-    setDogUri(arrayOfUris[randomNum])
-    */
     dogImage = await dogImage.json()
     await console.log(dogImage)
     await setDogUri(dogImage.message)
   }
   const handleFavorite = ()=> {
-    //call style changes
-    
     console.log('setting this dog url into favorites')
     console.log(dogUri)
     // set into dogImageFavorites table
-
     console.log('Inserting into sql database')
-    
     console.log('This is all my favorites so far')
     // fetch all dogImageFavorites and console.log
-
     db.transaction(
       tx => {
         //sets the done value to 0, and the value value to text
@@ -81,6 +64,8 @@ export default function Home({navigation, route}) {
               height: 400,
               uri: `${dogUri}`
             }}
+            style={styles.image}
+            fadeDuration={1500}
           />
           <Text>View another pooch</Text>
         </View>
@@ -102,6 +87,11 @@ const styles = StyleSheet.create({
     width: 300,
     maxHeight: 450,
     borderRadius: 3,
+    backgroundColor: '#f7f5f3',
+  },
+  image: {
+
+
   },
   header: {
     fontSize: 24,
