@@ -1,7 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useCallback, useState, useEffect } from 'react';
 import { Button, TouchableOpacity, Image, RefreshControl, StyleSheet, Text, View, ScrollView } from 'react-native';
+import { useSpring } from 'react-spring';
 
+import { Ionicons } from '@expo/vector-icons'
 
 import * as SQLite from 'expo-sqlite';
 const db = SQLite.openDatabase('db.gooddog');
@@ -38,6 +40,8 @@ export default function Home({navigation, route}) {
     await setDogUri(dogImage.message)
   }
   const handleFavorite = ()=> {
+    //call style changes
+    
     console.log('setting this dog url into favorites')
     console.log(dogUri)
     // set into dogImageFavorites table
@@ -68,19 +72,25 @@ export default function Home({navigation, route}) {
   return (
     <View style={styles.container}> 
       <Text style={styles.header}>Man's best Friend</Text>
-      <Button style={{fontSize: 24}} onPress={()=> navigation.navigate('FavoritesScreen')} title={'Go to all Favorites'}></Button>
-      <Image
-        source={{
-          width: '100%',
-          height: 500,
-          uri: `${dogUri}`
-        }}
-      />
+      <Button style={{fontSize: 24}} onPress={()=> navigation.navigate('FavoritesScreen')} title={'Favs ♥️'}></Button>
       <TouchableOpacity onPress={handlePress} >
-        <Text>View another pooch</Text>
+        <View style={styles.imageStyle}>
+          <Image
+            source={{
+              width: '100%',
+              height: 400,
+              uri: `${dogUri}`
+            }}
+          />
+          <Text>View another pooch</Text>
+        </View>
       </TouchableOpacity>
       <TouchableOpacity>
-        <Text onPress={handleFavorite}>Mark as favorite</Text>
+        <View style={styles.markAsFav}>
+          <Ionicons name="ios-paw" size={32} color="green" />
+          <Text onPress={handleFavorite}>Keep as Favorite</Text>
+          <Ionicons name="ios-paw" size={32} color="green" />
+        </View>
       </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
@@ -88,10 +98,18 @@ export default function Home({navigation, route}) {
 }
 
 const styles = StyleSheet.create({
+  imageStyle: {
+    width: 300,
+    maxHeight: 450,
+    borderRadius: 3,
+  },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 10,
+  },
+  markAsFav: {
+    flexDirection: 'row',
   },
   container: {
     flex: 1,

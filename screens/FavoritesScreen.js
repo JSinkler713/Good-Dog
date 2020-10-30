@@ -33,20 +33,20 @@ export default function Favorites() {
 
   return (
     <View style={styles.container}> 
-      <Text style={styles.header}>Man's best Friend</Text>
+      <Text style={styles.header}>Here's your Fav's</Text>
       {/* favorites && favorites.length > 0 ?<Text>{favorites[0].uri}</Text>: <Text>nothing here</Text>
       */}
         <FlatList
-          horizontal={true}
-          style={[{flex: 1, flexDirection: 'row'}, styles.colorPreview]}
+          vertical={true}
+          style={[{flex: 1, flexDirection: 'column'}, styles.colorPreview]}
           data={favorites}
           keyExtractor={item => item.uri}
           renderItem={({ item }) => (
             <Image 
               style={styles.favImage}
               source={{
-                width: 100,
-                height: 150,
+                width: 300,
+                height: 350,
                 uri: `${item.uri}`
               }}
             />

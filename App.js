@@ -3,7 +3,7 @@ import React, { useCallback, useState, useEffect } from 'react';
 import { TouchableOpacity, Image, RefreshControl, StyleSheet, Text, View, ScrollView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-
+import { asdkfljlsdf } from '@expo/vector-icons'
 import HomeScreen from './screens/HomeScreen';
 import FavoritesScreen from './screens/FavoritesScreen';
 
