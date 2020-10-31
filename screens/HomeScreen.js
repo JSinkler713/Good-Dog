@@ -19,7 +19,11 @@ export default function Home({navigation, route}) {
     });
   }, [])
   const [isRefreshing, setIsRefreshing] = useState(false)
-  const [dogUri, setDogUri] = useState('https://placedog.net/300/500/s')
+  const [dogUri, setDogUri] = useState('')
+
+  useEffect(()=> {
+    handlePress()
+  }, [])
 
   const handlePress = async()=> {
     let dogImage = await fetch('https://dog.ceo/api/breeds/image/random')
@@ -54,8 +58,8 @@ export default function Home({navigation, route}) {
 
   return (
     <View style={styles.container}> 
-      <Text style={styles.header}>Man's best Friend</Text>
-      <Button style={{fontSize: 24}} onPress={()=> navigation.navigate('FavoritesScreen')} title={'Favs ♥️'}></Button>
+      <Text style={styles.header}>Best Friend</Text>
+      <Button style={{fontSize: 24}} onPress={()=> navigation.navigate('My Favorites')} title={'Favs ♥️'}></Button>
       <TouchableOpacity onPress={handlePress} >
         <View style={styles.imageStyle}>
           <Image
@@ -67,14 +71,13 @@ export default function Home({navigation, route}) {
             style={styles.image}
             fadeDuration={1500}
           />
-          <Text>View another pooch</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity>
         <View style={styles.markAsFav}>
-          <Ionicons name="ios-paw" size={32} color="green" />
-          <Text onPress={handleFavorite}>Keep as Favorite</Text>
-          <Ionicons name="ios-paw" size={32} color="green" />
+          <Ionicons name="ios-paw" size={48} color='rgba(21, 39, 65, 0.8)'/>
+          <Text style={styles.favText} onPress={handleFavorite}> Keep as Favorite </Text>
+          <Ionicons name="ios-paw" size={48} color='rgba(21, 39, 65, 0.8)' />
         </View>
       </TouchableOpacity>
       <StatusBar style="auto" />
@@ -86,25 +89,30 @@ const styles = StyleSheet.create({
   imageStyle: {
     width: 300,
     maxHeight: 450,
-    borderRadius: 3,
-    backgroundColor: '#f7f5f3',
+    borderRadius: 25,
+    backgroundColor: '#829AAD',
+    
   },
   image: {
-
-
+    borderRadius: 25,
+    resizeMode: 'cover',
   },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
-    marginBottom: 10,
+    fontFamily: 'Permanent-Marker',
   },
   markAsFav: {
+    marginTop: 25,
     flexDirection: 'row',
+  },
+  favText: {
+    fontFamily: 'Permanent-Marker',
+    fontSize: 36,
   },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'rgb(178, 212, 238)',
     alignItems: 'center',
-    justifyContent: 'center',
   },
 });

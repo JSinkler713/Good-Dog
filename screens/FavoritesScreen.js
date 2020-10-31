@@ -33,12 +33,12 @@ export default function Favorites() {
 
   return (
     <View style={styles.container}> 
-      <Text style={styles.header}>Here's your Fav's</Text>
+      <Text style={styles.header}>Fav's</Text>
       {/* favorites && favorites.length > 0 ?<Text>{favorites[0].uri}</Text>: <Text>nothing here</Text>
       */}
         <FlatList
           vertical={true}
-          style={[{flex: 1, flexDirection: 'column'}, styles.colorPreview]}
+          style={[{backgroundColor: '#52616E', flex: 1, flexDirection: 'column'}, styles.colorPreview]}
           data={favorites}
           keyExtractor={item => item.uri}
           renderItem={({ item }) => (
@@ -58,6 +58,12 @@ export default function Favorites() {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    backgroundColor: 'rgb(178, 212, 238)',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   header: {
     fontSize: 24,
     fontWeight: 'bold',
@@ -69,11 +75,5 @@ const styles = StyleSheet.create({
     borderColor: '#f0f3f3',
     padding: 2,
     borderRadius: 5,
-  },
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });
