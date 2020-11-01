@@ -19,7 +19,7 @@ export default function Home({navigation, route}) {
     });
   }, [])
   const [isRefreshing, setIsRefreshing] = useState(false)
-  const [dogUri, setDogUri] = useState('')
+  const [dogUri, setDogUri] = useState('https://images.dog.ceo/breeds/collie-border/n02106166_6879.jpg')
 
   useEffect(()=> {
     handlePress()
@@ -58,8 +58,12 @@ export default function Home({navigation, route}) {
 
   return (
     <View style={styles.container}> 
-      <Text style={styles.header}>Best Friend</Text>
-      <Button style={{fontSize: 24}} onPress={()=> navigation.navigate('My Favorites')} title={'Favs ♥️'}></Button>
+      <View style={styles.header}>
+        <Text>Best Friend</Text>
+      <Button style={{
+        marginBottom: 10,
+      }} onPress={()=> navigation.navigate('My Favorites')} title={'Favs ♥️'}></Button>
+      </View>
       <TouchableOpacity onPress={handlePress} >
         <View style={styles.imageStyle}>
           <Image
@@ -98,7 +102,9 @@ const styles = StyleSheet.create({
     resizeMode: 'cover',
   },
   header: {
-    fontSize: 24,
+    fontSize: 36,
+    width: 200,
+    marginBottom: 10,
     fontWeight: 'bold',
     fontFamily: 'Permanent-Marker',
   },
@@ -114,5 +120,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgb(178, 212, 238)',
     alignItems: 'center',
+    marginTop: 20,
   },
 });

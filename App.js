@@ -34,7 +34,7 @@ export default function App() {
   return (
     <NavigationContainer theme={MyTheme}>
       <MainStack.Navigator initialRouteName="All Dogs" style={styles.nav}>
-        <MainStack.Screen name="All Dogs" component={HomeScreen} />
+        <MainStack.Screen options={{headerShown: false}} name="All Dogs" component={HomeScreen} />
         <MainStack.Screen name="My Favorites" component={FavoritesScreen} />
       </MainStack.Navigator>
     </NavigationContainer>
